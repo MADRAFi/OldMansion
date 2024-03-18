@@ -49,7 +49,7 @@ WEAPONS_COUNT = 10;
 TREASURES_COUNT = 5;
 ITEMS_COUNT = 9;
 PASSWORDS_COUNT = 9;
-
+INVENTORY_SIZE = 4;
 
 // X16LIB        = $7D00;
 fFadeIn                       = $A0CA;

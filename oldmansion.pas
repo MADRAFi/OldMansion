@@ -685,8 +685,8 @@ begin
     y := 1;
     roomDifficulty := 1;
     maxDifficulty := 15 * 8;
-    fillchar(@inventory[1], 4, TILE_EMPTY_SLOT);
-    inventory[0] := #4; //char(4);
+    fillchar(@inventory[1], INVENTORY_SIZE, TILE_EMPTY_SLOT);
+    inventory[0] := char(INVENTORY_SIZE);
     currentPassword := passwords[Random(PASSWORDS_COUNT)];
     consecutiveWaits := 0;
     weapon := 1;
@@ -934,14 +934,14 @@ function HasItem(b: byte):boolean;
 var i: byte;
 begin
     result := false;
-    for i := 1 to 4 do
+    for i := 1 to INVENTORY_SIZE do
         if inventory[i] = char(b) then exit(true);
 end;
 
 procedure DelItem(b: byte);
 var i: byte;
 begin
-    for i := 1 to 4 do
+    for i := 1 to INVENTORY_SIZE do
         if inventory[i] = char(b) then begin
             inventory[i] := char(TILE_EMPTY_SLOT);
             exit;
@@ -951,7 +951,7 @@ end;
 procedure AddItem(b: byte);
 var i: byte;
 begin
-    for i := 1 to 4 do
+    for i := 1 to INVENTORY_SIZE do
         if inventory[i] = char(TILE_EMPTY_SLOT) then begin
             inventory[i] := char(b);
             exit;
