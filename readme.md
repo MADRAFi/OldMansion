@@ -33,13 +33,14 @@ Old Mansion does not utilize all of capabilities of X16 but it is fun to play.
 In order to compile you need to have MAD-Pascal with x16 target support.
 **Please edit makefile to point to the path for MAD-Pascal base dir and X16 Emulator**
 
-`make x16`
+`
+make x16
+`
 
 ## Credits
 
-| Year | Author               |
-| ---- | -------------------- |
-| 1987 | Wojciech Zientara    |
-| 2019 | Wojciech Bociański   |
-| 2024 | Code: Rafał Czemko   |
-|      | Music: Brandon Blume |
+| Year | Author                                   |
+| ---- | ---------------------------------------- |
+| 1987 | Wojciech Zientara                        |
+| 2019 | Wojciech Bociański                       |
+| 2024 | Code: Rafał Czemko  Music: Brandon Blume |
