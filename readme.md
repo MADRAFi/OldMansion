@@ -12,7 +12,7 @@ In 2024 I have decided to make a conversion to Commander X16. In order to do tha
 
 Old Mansion does not utilize all of capabilities of X16 but it is fun to play.
 
-![old mansion animation](oldmansion.gif)
+![old mansion animation](resources/oldmansion.gif)
 
 ### Required tools
 
@@ -28,3 +28,11 @@ Old Mansion does not utilize all of capabilities of X16 but it is fun to play.
 In order to compile you need to have MAD-Pascal with x16 target support.
 
 **Please edit makefile to point to the path for MAD-Pascal base dir and X16 Emulator**
+
+### Credits
+
+| Year | Author                                  |
+| ---- | --------------------------------------- |
+| 1987 | Wojciech Zientara                       |
+| 2019 | Wojciech Bocianski                      |
+| 2024 | Code: Rafal Czemko Music: Brandon Blume |
