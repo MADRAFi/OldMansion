@@ -1,5 +1,6 @@
 Old Mansion
 ===========
+A game for [Commander X16](https://www.commanderx16.com/) computer.
 
 ### Introduction
 In 1987, polish computer magazine Bajtek published a listing of a computer game called "Stary Dom" ("Old House") authored by Wojciech Zientara. Simple text game written in basic that everyone could type in and play on 8 bit Atari computer. Rumor says game was inspired by another game publish earier for ZX Spectrum in some magazine.
@@ -34,5 +35,6 @@ In order to compile you need to have MAD-Pascal with x16 target support.
 | Year | Author                                  |
 | ---- | --------------------------------------- |
 | 1987 | Wojciech Zientara                       |
-| 2019 | Wojciech Bocianski                      |
-| 2024 | Code: Rafal Czemko Music: Brandon Blume |
+| 2019 | Wojciech Bociański                      |
+| 2024 | Code: Rafał Czemko                      |
+|      | Music: Brandon Blume                    |
