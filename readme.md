@@ -19,10 +19,14 @@ Old Mansion does not utilize all of capabilities of X16 but it is fun to play.
 
 ## Required tools
 
+Tools required to compile the game.
+
 - [MAD-Pascal](https://github.com/MADRAFi/Mad-Pascal/tree/x16)
 - [MADS](https://github.com/tebe6502/Mad-Assembler)
 
 ## Utilities
+
+Software used to produce resources for the game.
 
 - [Gimp plugin](https://github.com/jestin/gimp-vera-tileset-plugin)
 - [Furnace](https://tildearrow.org/furnace/)
@@ -34,7 +38,9 @@ In order to compile you need to have MAD-Pascal with x16 target support.
 **Please edit makefile to point to the path for MAD-Pascal base dir and X16 Emulator**
 
 `
+
 make x16
+
 `
 
 ## Credits

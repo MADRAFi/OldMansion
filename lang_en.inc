@@ -57,7 +57,7 @@ const
         'KEY',
         'PLANK',
         'FOOD',
-        'DRINKS',
+        'DRINK',
         'BANDAGE',
         'MEDICINE',
         'PASSWORD' 
@@ -79,8 +79,16 @@ const
     k_LEAVE = byte('L');
     k_REST = byte('R');
     k_MOVE = byte('M');
+
+    k_HAMMER = byte('H');
+    k_LANTERN = byte('L');
+    k_KEY = byte('K');
+    k_PLANK = byte('P');
+    k_FOOD = byte('F');
+    k_DRINK = byte('D');
     k_BANDAGE = byte('B');
-    k_MEDKIT = byte('M');
+    k_MEDICINES = byte('M');
+
     s_PRESS_ANY: string = 'PRESS ANY KEY';
     s_WANT_MANUAL: string = 'Do you want to read a manual '#187#185#188'/'#187#174#188'?';
     s_ENERGY: string = #187#165#174#165#178#167#185#188;
@@ -157,7 +165,7 @@ const
     s_HAS_STR: string = ' has attack ';
     s_WANNA_USE: string = 'Do you want to use an item '#187#185#188'/'#187#174#188'?';
     s_WHICH: string = 'Which one?       ';
-    s_CAN_USE_ONLY: string = 'Now you can use only ';
+    s_CAN_USE_ONLY: string = 'You can use only ';
     s_AND: string = ' and ';
     
     

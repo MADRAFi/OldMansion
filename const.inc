@@ -42,15 +42,11 @@ TILE_PLANK = $d3;
 TILE_FOOD = $d4;
 TILE_DRINK = $d5;
 TILE_BANDAGES = $d6;
-TILE_MEDICINES = $d7; 
+TILE_MEDICINES = $d7;
 
 MONSTERS_COUNT = 30;
 WEAPONS_COUNT = 10;
 TREASURES_COUNT = 5;
 ITEMS_COUNT = 9;
 PASSWORDS_COUNT = 9;
-INVENTORY_SIZE = 4;
-
-// X16LIB        = $7D00;
-fFadeIn                       = $A0CA;
-fFadeOut                      = $A0BD;
+INVENTORY_SIZE = 5;
