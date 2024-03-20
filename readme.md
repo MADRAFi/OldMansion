@@ -1,6 +1,7 @@
 # Old Mansion
 
 A game for [Commander X16](https://www.commanderx16.com/) computer.
+F10 turns off music while on title screen.
 
 ## Introduction
 
