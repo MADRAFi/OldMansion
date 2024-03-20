@@ -22,14 +22,15 @@ var
     strength, energy, monsterStrength, monsterSize: real;
     gameEnded: boolean;
     lootHistory: array[0..ITEMS_COUNT-2] of byte;
+    music: boolean;
 
 {$i io_x16.inc}
 {$i lang_en.inc}
 
 
-procedure StartMusic(bank, priority: byte);
+procedure StartMusic(bank: byte; addr: word; priority: byte);
 begin
-    zsmSetMem(priority, bank, $A000);
+    zsmSetMem(priority, bank, addr);
     zsmPlay(priority);
 end;
 
@@ -403,6 +404,7 @@ var
         X16_COLOR_WHITE, X16_COLOR_LIGHT_GREY, X16_COLOR_GREY, X16_COLOR_DARK_GREY
     );
 begin
+    veraGraphInit;
     veraDirectLoadImage('assets/mplogo.bin');
     Pause(3);
     fadeIn;
@@ -418,6 +420,13 @@ begin
         Inc(i);
         if (i = 3) then i:=0;
         pause(8);
+        if keypressed then begin
+            keycode:=byte(ReadKey);
+            IF keycode = k_F10 then begin
+                music:=not music;
+                StopMusic(0);
+            end;
+        end;
     until keypressed;
     fadeOut;
 end;
@@ -662,6 +671,7 @@ procedure FoundWeapon;
 begin
     r := Random(10) + 1;    // 1-10
     StatusLine(s_FOUND, weapons[r - 1]);
+    StartMusic(61, $A700, 3);
     Position(10, 28); Write(s_TAKE, s_OR, s_LEAVE, ' ?');
     keycode := getKey(k_TAKE, k_LEAVE);
     if keycode = k_TAKE then begin
@@ -674,7 +684,7 @@ end;
 procedure FoundPassword;
 begin
     if seenPassword < 3 then begin
-        write(X16_BELL);
+        StartMusic(61, $A400, 3);
         StatusLine(s_FOUND_PASS, currentPassword, '.');
         StatusLine2(s_REMEMBER);
         Pause(200);
@@ -711,6 +721,7 @@ begin
     until lootHistory[item] = 0;
     lootHistory[item] := 6;
     StatusLine(s_FOUND, items[item]);
+    StartMusic(61, $A600, 3);
     Position(10, 28); Write(s_TAKE, s_OR, s_LEAVE, ' ?');
     keycode:= GetKey(k_TAKE, k_LEAVE);
     if keycode = k_LEAVE then begin
@@ -952,21 +963,27 @@ begin
                             score := Trunc(gold * weapon);
                             Str(gold, aStr);
                             Str(score, bStr);
+                            StopMusic(0);
                             StatusLine(s_EXIT_LEAVE);
                             StatusLine2(Concat('$', aStr),s_AND, weaponName, Concat(s_EXIT_SCORE, bStr), s_ANY);
+                            StartMusic(61, $A900, 3);
                             Pause(3);
                             KeyAndShowStat;
                             gameEnded := true;
                         end else begin
+                            StopMusic(0);
                             StatusLine(s_EXIT_POOR);
                             StatusLine2(s_EXIT_FATAL, s_ANY);
+                            StartMusic(61, $A100, 3);
                             Pause(3);
                             repeat until keypressed;
                             gameEnded := true;
                         end;
                     end else begin
+                        StopMusic(0);
                         StatusLine(s_EXIT_WRONG_PASS, currentPassword, '.');
                         StatusLine2(s_EXIT_FATAL, s_ANY);
+                        StartMusic(61, $A100, 3);
                         Pause(3);
                         repeat until keypressed;
                         gameEnded := true;
@@ -1017,6 +1034,7 @@ begin
                     begin
                         if weapon > 1 then begin
                             StatusLine(s_BROKE, weaponName, '.');
+                            StartMusic(61, $A300, 3);
                             weapon := weapon - 4;
                             if weapon < 1 then weapon := 1;
                             weaponName := weapons[weapon - 1];
@@ -1030,6 +1048,7 @@ begin
             if itemLost <> TILE_EMPTY_SLOT then begin
                 StatusLine(s_ITEM_BROKE[r]);
                 StatusLine2(s_DROPPED, s_ANY);
+                StartMusic(61, $A300, 3);
                 DelItem(itemLost);
                 repeat until keypressed;
                 ShowStats;
@@ -1054,6 +1073,7 @@ begin
                     repeat until keypressed;
                     StatusLine(s_BACK_TO_START, s_ANY);
                     MovePlayer(6, 1);
+                    StartMusic(61, $A000, 3);
                     stepFinished := true;
                     wounds := 0;
                     KeyAndShowStat;
@@ -1061,10 +1081,12 @@ begin
                     if (strength = 0) or (wounds > 4) then begin // ***********     too weak ?
                         StatusLine2(s_TOO_WEAK, s_ANY);
                         keycode := k_RANSOM;
+                        StartMusic(61, $A500, 3);
                         KeyAndShowStat;
                     end else if gold = 0 then begin             // ************** no gold ?
                         StatusLine2(s_TOO_POOR, s_ANY);
                         keycode := k_FIGHT;
+                        StartMusic(61, $A500, 3);
                         KeyAndShowStat;
                     end else begin
                         // StatusLine2(s_FIGHT, s_OR, s_RANSOM, ' ?');
@@ -1129,9 +1151,11 @@ begin
 
                     if not hasItem(i) then begin
                         StatusLine2(s_DONT_HAVE, chr(i), s_ANY);
+                        StartMusic(61, $A500, 3);
                         repeat until keypressed;
                     end else
                         if (keycode = k_FOOD) or (keycode = k_DRINK) or (keycode = k_BANDAGE) or (keycode = k_MEDICINES) then begin
+                            StartMusic(61, $A800, 3);
                             DelItem(i);
                             case keycode of
                                 k_FOOD:      energy := energy + 3;
@@ -1145,6 +1169,7 @@ begin
                         end else begin
                             Position(2,28);
                             Write(s_CAN_USE_ONLY, char(itemSymbols[4]),' ', char(itemSymbols[5]), ' ', char(itemSymbols[6]),' ', char(itemSymbols[7]), s_ANY);
+                            StartMusic(61, $A500, 3);
                             repeat until keypressed;
                         end;
                 end else stepFinished := true;
@@ -1165,20 +1190,30 @@ begin
     zsmInit(50);
     zsmDirectLoad('assets/intro.zsm', 51, $A000);
     zsmDirectLoad('assets/theme.zsm', 55, $A000);
+    zsmDirectLoad('assets/effect1.zsm', 61, $A000);
+    zsmDirectLoad('assets/effect2.zsm', 61, $A100);     // bad ending
+    zsmDirectLoad('assets/effect3.zsm', 61, $A300);     // item lost / broken weapon
+    zsmDirectLoad('assets/effect4.zsm', 61, $A400);     // password found
+    zsmDirectLoad('assets/effect5.zsm', 61, $A500);     // info
+    zsmDirectLoad('assets/effect6.zsm', 61, $A600);     // item found
+    zsmDirectLoad('assets/effect7.zsm', 61, $A700);     // weapon found
+    zsmDirectLoad('assets/effect8.zsm', 61, $A800);     // used consumable
+    zsmDirectLoad('assets/effect9.zsm', 61, $A900);     // good ending
     zsmSetISR;
 
     Randomize;
     write(X16_ISO_ON);
     TextCharset('assets/om_iso_manual.fnt');
+    music:=true;
     repeat
-        StartMusic(51,0);
+        if music then StartMusic(51, $A000, 0);
 
         TitleScreen;
         ShowManual;
 
         StopMusic(0);
         PaintBoard;
-        StartMusic(55,0);
+        if music then StartMusic(55, $A000, 0);
 
         gameEnded := false;
         while not gameEnded do MakeMove;

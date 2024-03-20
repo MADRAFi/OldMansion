@@ -67,6 +67,7 @@ const
     passwords: array [0..PASSWORDS_COUNT - 1] of TString = ('FISH','EGGS','BYTE','TREE','CLAN','CULT','MOON','BULB','LASH');
 
 const
+    k_F10 = $15;
     k_YES = byte('Y');
     k_NO = byte('N');
     k_LEFT = byte('L');
@@ -153,8 +154,8 @@ const
     s_YOU_M: string = ' by ';
     s_YOU_F: string = '';
     s_MONSTER_STR: string = '. Attack ';
-    s_TOO_WEAK_POOR: string = 'You are too waek and poor';
-    s_TOO_WEAK: string = 'You are too waek, You must pay.';
+    s_TOO_WEAK_POOR: string = 'You are too weak and poor';
+    s_TOO_WEAK: string = 'You are too weak, You must pay.';
     s_TOO_POOR: string = 'You have to fight.';
     s_FIGHT: string = #187#166#188'ight';
     s_RANSOM: string = #187#162#188'ribe';
