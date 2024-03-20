@@ -39,9 +39,7 @@ In order to compile you need to have MAD-Pascal with x16 target support.
 **Please edit makefile to point to the path for MAD-Pascal base dir and X16 Emulator**
 
 `
-
 make x16
-
 `
 
 ## Credits
