@@ -39,7 +39,13 @@ begin
     zsmStop(priority);
 end;
 
-
+procedure StartEffect(bank: byte; addr: word; priority: byte);
+begin
+    if not music then begin
+        zsmSetMem(priority, bank, addr);
+        zsmPlay(priority);
+    end;
+end;
 
 procedure fadeIn;
 begin
@@ -671,7 +677,7 @@ procedure FoundWeapon;
 begin
     r := Random(10) + 1;    // 1-10
     StatusLine(s_FOUND, weapons[r - 1]);
-    StartMusic(61, $A700, 3);
+    StartEffect(61, $A700, 3);
     Position(10, 28); Write(s_TAKE, s_OR, s_LEAVE, ' ?');
     keycode := getKey(k_TAKE, k_LEAVE);
     if keycode = k_TAKE then begin
@@ -684,7 +690,7 @@ end;
 procedure FoundPassword;
 begin
     if seenPassword < 3 then begin
-        StartMusic(61, $A400, 3);
+        StartEffect(61, $A400, 3);
         StatusLine(s_FOUND_PASS, currentPassword, '.');
         StatusLine2(s_REMEMBER);
         Pause(200);
@@ -721,7 +727,7 @@ begin
     until lootHistory[item] = 0;
     lootHistory[item] := 6;
     StatusLine(s_FOUND, items[item]);
-    StartMusic(61, $A600, 3);
+    StartEffect(61, $A600, 3);
     Position(10, 28); Write(s_TAKE, s_OR, s_LEAVE, ' ?');
     keycode:= GetKey(k_TAKE, k_LEAVE);
     if keycode = k_LEAVE then begin
@@ -1034,7 +1040,7 @@ begin
                     begin
                         if weapon > 1 then begin
                             StatusLine(s_BROKE, weaponName, '.');
-                            StartMusic(61, $A300, 3);
+                            StartEffect(61, $A300, 3);
                             weapon := weapon - 4;
                             if weapon < 1 then weapon := 1;
                             weaponName := weapons[weapon - 1];
@@ -1048,7 +1054,7 @@ begin
             if itemLost <> TILE_EMPTY_SLOT then begin
                 StatusLine(s_ITEM_BROKE[r]);
                 StatusLine2(s_DROPPED, s_ANY);
-                StartMusic(61, $A300, 3);
+                StartEffect(61, $A300, 3);
                 DelItem(itemLost);
                 repeat until keypressed;
                 ShowStats;
@@ -1073,7 +1079,7 @@ begin
                     repeat until keypressed;
                     StatusLine(s_BACK_TO_START, s_ANY);
                     MovePlayer(6, 1);
-                    StartMusic(61, $A000, 3);
+                    StartEffect(61, $A000, 3);
                     stepFinished := true;
                     wounds := 0;
                     KeyAndShowStat;
@@ -1081,12 +1087,12 @@ begin
                     if (strength = 0) or (wounds > 4) then begin // ***********     too weak ?
                         StatusLine2(s_TOO_WEAK, s_ANY);
                         keycode := k_RANSOM;
-                        StartMusic(61, $A500, 3);
+                        StartEffect(61, $A500, 3);
                         KeyAndShowStat;
                     end else if gold = 0 then begin             // ************** no gold ?
                         StatusLine2(s_TOO_POOR, s_ANY);
                         keycode := k_FIGHT;
-                        StartMusic(61, $A500, 3);
+                        StartEffect(61, $A500, 3);
                         KeyAndShowStat;
                     end else begin
                         // StatusLine2(s_FIGHT, s_OR, s_RANSOM, ' ?');
@@ -1151,11 +1157,11 @@ begin
 
                     if not hasItem(i) then begin
                         StatusLine2(s_DONT_HAVE, chr(i), s_ANY);
-                        StartMusic(61, $A500, 3);
+                        StartEffect(61, $A500, 3);
                         repeat until keypressed;
                     end else
                         if (keycode = k_FOOD) or (keycode = k_DRINK) or (keycode = k_BANDAGE) or (keycode = k_MEDICINES) then begin
-                            StartMusic(61, $A800, 3);
+                            StartEffect(61, $A800, 3);
                             DelItem(i);
                             case keycode of
                                 k_FOOD:      energy := energy + 3;
@@ -1169,7 +1175,7 @@ begin
                         end else begin
                             Position(2,28);
                             Write(s_CAN_USE_ONLY, char(itemSymbols[4]),' ', char(itemSymbols[5]), ' ', char(itemSymbols[6]),' ', char(itemSymbols[7]), s_ANY);
-                            StartMusic(61, $A500, 3);
+                            StartEffect(61, $A500, 3);
                             repeat until keypressed;
                         end;
                 end else stepFinished := true;
